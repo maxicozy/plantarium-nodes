@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 
 #include <ArduinoJson.h>
@@ -15,16 +14,20 @@
 
 #define MODULES_LENGTH 6
 
-/*const char* host = "192.168.2.150";
-const uint16_t port = 3030;*/
+const char* host = "192.168.2.112";
+const uint16_t port = 3030;
 
-const char* host = "plantarium.srv1.hfgiot.cloud";
-const uint16_t port = 443;
+/*const char* host = "plantarium.srv1.hfgiot.cloud";
+const uint16_t port = 443;*/
 
 const char* ssid = "ssid";
 const char* pass = "pass";
 
+
+//positionsdefinitionen der module im system
 String modules[MODULES_LENGTH] = {"", "herbs", "", "", "tomatos", "chilis"};
+
+//i2c addresse des led moduls
 int ledAddr = 6;
 
 byte receiveData[10];
@@ -35,6 +38,7 @@ int lastWaterLevel;
 float lastPhVal;
 float lastTdsVal;
 
+//aktuelle Zeitzone
 const long utcOffsetInSeconds = 3600;
 
 const int offTime = 0;
@@ -42,6 +46,7 @@ const int duration = 8;
 
 int timeStamp;
 
+//hier wird die current time gespeichert, stunden, minuten und sekunden an der jeweiligen stelle im array
 int ct[3] = {0, 0, 0};
 int lh;
 int lm;
@@ -51,6 +56,7 @@ WebSocketsClient webSocket;
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
+//von der websocket library
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 
   switch(type) {
@@ -60,8 +66,6 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
     case WStype_CONNECTED:
       {
       Serial.printf("[WSc] Connected to url: %s\n",  payload);
-      // send message to server when Connected
-      webSocket.sendTXT("Connected");
       }
       break;
     case WStype_TEXT:
@@ -113,7 +117,11 @@ void setup() {
   
   Serial.println("connected to wifi, connecting to server.");
 
+  //der header ist mit dem backend server vereinbart
   webSocket.setExtraHeaders("Sec-WebSocket-Protocol: plantarium");
+
+  //so sieht später vllt mal die authorization aus damit das backend weiß von welchem garten die daten kommen
+  //webSocket.setExtraHeaders("Authorization: 1");
   webSocket.beginSSL(host, port);
   webSocket.onEvent(webSocketEvent);
   webSocket.setReconnectInterval(5000);
@@ -132,20 +140,24 @@ void loop() {
     for(int i = 0; i < MODULES_LENGTH; i++) {
 
       if (modules[i] != "") {
+        //wenn an der stelle im array ein modul ist werden jetzt daten abgefragt,
         requestSlaveData(i, 10);
 
+        //in ein object verpackt
         DynamicJsonDocument sendDoc (1024);
 
-        sendDoc["stamp"] = timeStamp;
+        sendDoc["time"] = timeStamp;
         sendDoc["plant"] = modules[i];
         sendDoc["position"] = i;
         sendDoc["waterLevel"] = lastWaterLevel;
-        sendDoc["phVal"] = lastPhVal;
-        sendDoc["tdsVal"] = lastTdsVal;
+        sendDoc["ph"] = lastPhVal;
+        sendDoc["tds"] = lastTdsVal;
+        sendDoc["messageType"] = "sensorData";
 
         char string[128];
         serializeJson(sendDoc, string);
-         
+
+        //und ans backend gesendet
         webSocket.sendTXT(string);
       }
     }
@@ -156,18 +168,22 @@ void loop() {
     for(int i = 0; i < MODULES_LENGTH; i++) {
 
       if (modules[i] != "") {
+        //wenn an der stelle im array ein modul ist werden jetzt daten abgefragt,
         requestSlaveData(i, 2);
 
+        //in ein object verpackt
         DynamicJsonDocument sendDoc (1024);
 
-        sendDoc["stamp"] = timeStamp;
+        sendDoc["time"] = timeStamp;
         sendDoc["plant"] = modules[i];
         sendDoc["position"] = i;
         sendDoc["waterLevel"] = lastWaterLevel;
+        sendDoc["messageType"] = "sensorData";
 
         char string[128];
         serializeJson(sendDoc, string);
-         
+
+        //und ans backend gesendet
         webSocket.sendTXT(string);
       }
     }
@@ -179,6 +195,7 @@ void loop() {
 }
 
 void updateTime() {
+  //hier werden unsere zeitvariablen mit neuen daten aus dem internet upgedatet
   timeClient.update();
   ct[0] = timeClient.getHours();
   ct[1] = timeClient.getMinutes();
@@ -186,7 +203,9 @@ void updateTime() {
   timeStamp = timeClient.getEpochTime();
 }
 
+//diese funktion checkt ob seit dem letzten mal checken eine minute bzw stunde vergangen ist
 bool checkAfter(int unit) {
+  //abhängig vom angegebenen unit wird eine andere variable verwendet
   int lastUnit;
   if (unit == 0) {
     lastUnit = lh;
@@ -226,13 +245,17 @@ void requestSlaveData(int address, int bytes) {
   Wire.requestFrom(address, bytes);
   int receiveWaterLevel;
   receiveData[0] = Wire.read();
-  receiveData[1] = Wire.read();
+  receiveData[1] = Wire.read(); 
+
+  //da über i2c nur einzelne bytes gesendet werden können, müssen diese wieder zu einem int zusammengesetzt werden
   receiveWaterLevel = receiveData[0];
   receiveWaterLevel = (receiveWaterLevel << 8) | receiveData[1];
+
+  //sanity check ob der wert sinn macht
   if (receiveWaterLevel <= 1000) {
     lastWaterLevel = receiveWaterLevel;
   }
-
+  //ph und ec sensorwerte werden über einen union wert mit einem buffer gleichgeseutzt, hier muss der buffer wieder als float wert ausgelesen werden
   union floatToBytes {
   
     char buffer[4];
