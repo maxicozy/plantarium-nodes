@@ -4,27 +4,26 @@
 #define phPin 15
 #define tdsPin 16
 
-#define answer_size 5
+//das ist die adresse des moduls und ist in jedem modul unterschiedlich. irgendwann müssen wir noch herausfinden wie neue Adressen zugewiesen werden für den setup prozess
+const int tomatoAddr = 4;
 
-const int tomatoAddr = 1;
-
-//set ph sensor vars
+//ph sensor variablen
 float calibration_value = 21.34 - 0.7;
 unsigned long int avgval;
 int buffer_arr[10], temp;
-float phVal = 7.55;
+float phVal;
 
-//set tds sensor vars
+//tds sensor variablen
 #define VREF 5.0                    // analog reference voltage(Volt) of the ADC
 #define SCOUNT 30                   // sum of sample point
 int analogBuffer[SCOUNT];           // store the analog value in the array, read from ADC
 int analogBufferTemp[SCOUNT];
 int analogBufferIndex = 0, copyIndex = 0;
 float averageVoltage = 0, temperature = 25;
-float tdsVal = 225.23;
+float tdsVal;
 
-//set water level vars
-int waterLevel = 420;
+//water level variablen
+int waterLevel;
 
 
 void setup() {
@@ -38,9 +37,11 @@ void setup() {
 
 void requestEvent() {
   byte data[2];
+  //um einen int über i2c zu senden muss dieser in einzelne bytes aufgeteilt werden
   data[0] = (waterLevel >> 8)& 0xFF;
   data[1] = waterLevel & 0xFF;
-  
+
+  //einen float über i2c zu verschicken geht am einfachsten indem man den float über union mit einem buffer an der gleichen stelle speichert und dann den buffer verschickt
   union floatToBytes {
     char buffer[4];
     float value;
@@ -55,14 +56,14 @@ void requestEvent() {
 }
 
 void loop() { 
-  //waterLevel = analogRead(levelPin);
-  //phSensor();
-  //tdsSensor();
-  Serial.println(waterLevel);
+  waterLevel = analogRead(levelPin);
+  phSensor();
+  tdsSensor();
 }
 
+//das ist einfach code von unserem ph sensor der den ph wert ermittelt
 void phSensor() {
-
+  
   for (int i = 0; i < 10; i++) {
     buffer_arr[i] = analogRead(phPin);
     delay(30);
@@ -88,6 +89,8 @@ void phSensor() {
   delay(1000);
 }
 
+
+//das ist einfach code von unserem tds sensor der den tds wert ermittelt
 void tdsSensor() {
   static unsigned long analogSampleTimepoint = millis();
   if (millis() - analogSampleTimepoint > 40U) { //every 40 milliseconds,read the analog value from the ADC
