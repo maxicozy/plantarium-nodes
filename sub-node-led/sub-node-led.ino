@@ -1,6 +1,6 @@
  #include <Wire.h>
 
-//pins für die verschiedenen led panele, sind in 3 aufgeteilt weil der strom von allen 3 in einem relais dieses durchschmoren würde
+//pins der verschiedenen led panele, sind in 3 aufgeteilt weil der strom von allen 3 in einem relais dieses durchscmoren liesse
 int led1 = 3;
 int led2 = 4;
 int led3 = 5;

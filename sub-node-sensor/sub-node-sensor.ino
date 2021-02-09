@@ -4,7 +4,7 @@
 #define phPin 15
 #define tdsPin 16
 
-//das ist die adresse des moduls und ist in jedem modul unterschiedlich. irgendwann müssen wir noch herausfinden wie neue Adressen zugewiesen werden für den setup prozess
+//das ist die adresse des moduls und ist in jedem modul unterschiedlich. irgendwann muessen wir noch herausfinden wie neue Adressen zugewiesen werden für den setup prozess
 const int tomatoAddr = 4;
 
 //ph sensor variablen
@@ -41,7 +41,7 @@ void requestEvent() {
   data[0] = (waterLevel >> 8)& 0xFF;
   data[1] = waterLevel & 0xFF;
 
-  //einen float über i2c zu verschicken geht am einfachsten indem man den float über union mit einem buffer an der gleichen stelle speichert und dann den buffer verschickt
+  //einen float per i2c zu verschicken geht am einfachsten indem man den float mit union mit einem buffer an der gleichen stelle speichert und dann den buffer verschickt
   union floatToBytes {
     char buffer[4];
     float value;

@@ -120,7 +120,7 @@ void setup() {
   //der header ist mit dem backend server vereinbart
   webSocket.setExtraHeaders("Sec-WebSocket-Protocol: plantarium");
 
-  //so sieht später vllt mal die authorization aus damit das backend weiß von welchem garten die daten kommen
+  //so sieht irgendwann vllt mal die authorization aus damit das backend weiß von welchem garten die daten kommen
   //webSocket.setExtraHeaders("Authorization: 1");
   webSocket.beginSSL(host, port);
   webSocket.onEvent(webSocketEvent);
@@ -205,7 +205,7 @@ void updateTime() {
 
 //diese funktion checkt ob seit dem letzten mal checken eine minute bzw stunde vergangen ist
 bool checkAfter(int unit) {
-  //abhängig vom angegebenen unit wird eine andere variable verwendet
+  //je nach angegebenem unit wird eine andere variable verwendet
   int lastUnit;
   if (unit == 0) {
     lastUnit = lh;
@@ -247,7 +247,7 @@ void requestSlaveData(int address, int bytes) {
   receiveData[0] = Wire.read();
   receiveData[1] = Wire.read(); 
 
-  //da über i2c nur einzelne bytes gesendet werden können, müssen diese wieder zu einem int zusammengesetzt werden
+  //da man per i2c nur einzelne bytes sende kann, muss man diese wieder zu einem int zusammensetzen
   receiveWaterLevel = receiveData[0];
   receiveWaterLevel = (receiveWaterLevel << 8) | receiveData[1];
 
