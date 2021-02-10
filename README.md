@@ -4,12 +4,10 @@ In unserem Projekt haben wir, innerhalb unserem Semester an der HfG Gmünd, ein 
 Mit diesem System kann man Pflanzen schneller großziehen und die richtigen Nährstoffe für die Pflanzen dosieren.
 
 Der Stack besteht aus: </br>
+
 der mit Vue.js umgesetzten [App](https://github.com/maxicozy/plantarium-app),
-
 einem [Backend](https://github.com/maxicozy/plantarium-backend-ii), dass die Daten aus der Datenbank für die App bereitstellt, 
-
 einem [Backend](https://github.com/maxicozy/plantarium-backend-i), dass die Daten aus dem Hydroponischen System in die Datenbank einspeist
-
 und aus den **Nodes** die Sensordaten sammeln und die Hardware kontrollieren.
 
 Unser Prjektteam besteht aus: </br>
