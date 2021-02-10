@@ -14,10 +14,10 @@
 
 #define MODULES_LENGTH 6
 
-const char* host = "192.168.2.112";
+const char* host = "192.168.2.112/socket";
 const uint16_t port = 3030;
 
-/*const char* host = "plantarium.srv1.hfgiot.cloud";
+/*const char* host = "plantarium.srv1.hfgiot.cloud/socket";
 const uint16_t port = 443;*/
 
 const char* ssid = "ssid";
