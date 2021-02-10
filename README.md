@@ -18,6 +18,7 @@ Unser Prjektteam besteht aus: </br>
 
 ## plantarium-nodes
 Unsere Sensoren und die Harware hängen zusammen wie auf der folgenden Grafik: </br>
+
 <img src="./img/hardware.png">
 
 Die Nodes kontrollieren die Hardware und lesen mit Sensoren die Wasserwerte aus.
