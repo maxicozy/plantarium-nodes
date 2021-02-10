@@ -8,7 +8,7 @@ einem [Backend 2](https://github.com/maxicozy/plantarium-backend-ii), dass die D
 einem [Backend 1](https://github.com/maxicozy/plantarium-backend-i), dass die Daten aus dem Hydroponischen System in die Datenbank einspeist </br>
 und aus den **Nodes** die Sensordaten sammeln und die Hardware kontrollieren. </br>
 
-Unser Prjektteam besteht aus: </br>
+Unser Projektteam besteht aus: </br>
 [Noah Mantel](https://github.com/Nodarida) </br>
 [Ligia Dietze](https://github.com/Ligiki1) </br>
 [Maximilian Becht](https://github.com/maxicozy) </br>
