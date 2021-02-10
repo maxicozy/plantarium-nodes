@@ -3,7 +3,7 @@
 In unserem Projekt haben wir, innerhalb unserem Semester an der HfG Gmünd, ein automatisiertes Hydroponisches Bewässerungssysthem mit App entwickelt.
 Mit diesem System kann man Pflanzen schneller großziehen und die richtigen Nährstoffe für die Pflanzen dosieren.
 
-Der Stack besteht aus:
+Der Stack besteht aus: </br>
 der mit Vue.js umgesetzten [App](https://github.com/maxicozy/plantarium-app),
 
 einem [Backend](https://github.com/maxicozy/plantarium-backend-ii), dass die Daten aus der Datenbank für die App bereitstellt, 
@@ -12,16 +12,16 @@ einem [Backend](https://github.com/maxicozy/plantarium-backend-i), dass die Date
 
 und aus den **Nodes** die Sensordaten sammeln und die Hardware kontrollieren.
 
-Unser Prjektteam besteht aus:
-[Noah Mantel](https://github.com/Nodarida)
-[Ligia Dietze](https://github.com/Ligiki1)
-[Maximilian Becht](https://github.com/maxicozy)
-[Marius Schairer](https://github.com/marius220699)
+Unser Prjektteam besteht aus: </br>
+[Noah Mantel](https://github.com/Nodarida) </br>
+[Ligia Dietze](https://github.com/Ligiki1) </br>
+[Maximilian Becht](https://github.com/maxicozy) </br>
+[Marius Schairer](https://github.com/marius220699) </br>
 
 
 
 ## plantarium-nodes
-Unsere Sensoren und die Harware hängen zusammen wie auf der folgenden Grafik
+Unsere Sensoren und die Harware hängen zusammen wie auf der folgenden Grafik:
 <img src="./img/hardware.png">
 
 Die Nodes kontrollieren die Hardware und lesen mit Sensoren die Wasserwerte aus.
