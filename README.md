@@ -5,10 +5,10 @@ Mit diesem System kann man Pflanzen schneller großziehen und die richtigen Näh
 
 Der Stack besteht aus: </br>
 
-der mit Vue.js umgesetzten [App](https://github.com/maxicozy/plantarium-app),
-einem [Backend](https://github.com/maxicozy/plantarium-backend-ii), dass die Daten aus der Datenbank für die App bereitstellt, 
-einem [Backend](https://github.com/maxicozy/plantarium-backend-i), dass die Daten aus dem Hydroponischen System in die Datenbank einspeist
-und aus den **Nodes** die Sensordaten sammeln und die Hardware kontrollieren.
+der mit Vue.js umgesetzten [App](https://github.com/maxicozy/plantarium-app), </br>
+einem [Backend](https://github.com/maxicozy/plantarium-backend-ii), dass die Daten aus der Datenbank für die App bereitstellt, </br> 
+einem [Backend](https://github.com/maxicozy/plantarium-backend-i), dass die Daten aus dem Hydroponischen System in die Datenbank einspeist </br>
+und aus den **Nodes** die Sensordaten sammeln und die Hardware kontrollieren. </br>
 
 Unser Prjektteam besteht aus: </br>
 [Noah Mantel](https://github.com/Nodarida) </br>
