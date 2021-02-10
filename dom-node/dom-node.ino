@@ -1,5 +1,4 @@
 #include <Arduino.h>
-
 #include <ArduinoJson.h>
 #include <WebSocketsClient.h>
 
@@ -44,7 +43,7 @@ const long utcOffsetInSeconds = 3600;
 const int offTime = 0;
 const int duration = 8;
 
-int timeStamp;
+long timeStamp;
 
 //hier wird die current time gespeichert, stunden, minuten und sekunden an der jeweiligen stelle im array
 int ct[3] = {0, 0, 0};
