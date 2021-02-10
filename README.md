@@ -4,8 +4,8 @@ In unserem Projekt haben wir, innerhalb unseres Semesters an der Hochschule für
 
 Der Stack besteht aus: </br>
 der mit Vue.js umgesetzten [App](https://github.com/maxicozy/plantarium-app), </br>
-einem [Backend](https://github.com/maxicozy/plantarium-backend-ii), dass die Daten aus der Datenbank für die App bereitstellt, </br> 
-einem [Backend](https://github.com/maxicozy/plantarium-backend-i), dass die Daten aus dem Hydroponischen System in die Datenbank einspeist </br>
+einem [Backend 2](https://github.com/maxicozy/plantarium-backend-ii), dass die Daten aus der Datenbank für die App bereitstellt, </br> 
+einem [Backend 1](https://github.com/maxicozy/plantarium-backend-i), dass die Daten aus dem Hydroponischen System in die Datenbank einspeist </br>
 und aus den **Nodes** die Sensordaten sammeln und die Hardware kontrollieren. </br>
 
 Unser Prjektteam besteht aus: </br>
